@@ -38,11 +38,11 @@ export default function LoginPage() {
     };
 
     return (
-        <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-primary)' }}>
+        <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-primary)', padding: 'var(--space-md)' }}>
             <div className="glass-card" style={{ width: '100%', maxWidth: '400px', textAlign: 'center' }}>
-                <h1 className="heading-md" style={{ marginBottom: 'var(--space-md)' }}>Espace Administrateur</h1>
+                <h1 className="heading-md" style={{ marginBottom: 'var(--space-md)' }}>Accès Admin</h1>
                 <p style={{ color: 'var(--text-secondary)', marginBottom: 'var(--space-lg)' }}>
-                    Veuillez entrer le mot de passe pour accéder au tableau de bord.
+                    Veuillez entrer le mot de passe pour accéder à l'espace administration.
                 </p>
 
                 <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>

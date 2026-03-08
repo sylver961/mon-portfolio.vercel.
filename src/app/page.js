@@ -12,11 +12,11 @@ export default function Home() {
       {/* Hero Section */}
       <section className="hero-section" id="home">
         <div className="container animate-fade-in centering-container">
-          <p style={{ color: 'var(--accent-primary)', fontWeight: 'bold', marginBottom: 'var(--space-lg)' }}>
+          <p style={{ color: 'var(--accent-warning)', fontWeight: 'bold', marginBottom: 'var(--space-lg)' }}>
             Bonjour, je suis BIRHASHWIRWA BASABANYA Sylver
           </p>
           <h1 className="heading-xl" style={{ marginBottom: 'var(--space-md)', color: 'white' }}>
-            Développeur <span className="text-gradient">Back-End</span>, Enseignant de l'Informatique <br /> et Designer Graphique
+            Développeur <span className="text-gradient">Fullstack</span>, Enseignant de l'Informatique <br /> et Designer Graphique
           </h1>
           <p style={{ fontSize: '1.25rem', maxWidth: '600px', margin: '0 auto var(--space-xl)', color: '#e5e7eb' }}>
             Je conçois des architectures robustes, des API performantes et des bases de données optimisées pour des applications web modernes.
@@ -69,7 +69,7 @@ export default function Home() {
         <div className="container centering-container">
           <h2 className="heading-lg text-gradient" style={{ textAlign: 'center', marginBottom: 'var(--space-lg)' }}>Travaillons Ensemble</h2>
           <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: 'var(--space-xl)', maxWidth: '600px' }}>
-            Je suis actuellement à la recherche de nouvelles opportunités. N'hésitez pas à me contacter si vous avez un projet en tête !, ou si vous avez besoin d'un design professionnel
+            Je suis actuellement à la recherche de nouvelles opportunités. N'hésitez pas à me contacter si vous avez un projet en tête !, ou si vous avez besoin d'un design professionnel, ou si vous avez besoin d'un site web, logiciel de gestion n'hesitez pas a nous contacter.
           </p>
 
           <ContactForm />
@@ -80,7 +80,7 @@ export default function Home() {
       {/* Footer */}
       <footer style={{ padding: 'var(--space-lg) 0', textAlign: 'center', borderTop: '1px solid var(--border-light)' }}>
         <SocialIcons style={{ marginBottom: 'var(--space-md)' }} size={20} />
-        <p style={{ color: 'var(--text-secondary)' }}>© {new Date().getFullYear()} Portfolio Sylver BIRHASHWIRWA. Construit avec Next.js. 🚀</p>
+        <p style={{ color: 'var(--text-secondary)' }}>© {new Date().getFullYear()} Portfolio by Sylver BIRHASHWIRWA. Construit avec Next.js. 🚀</p>
       </footer>
     </main>
   );

@@ -50,13 +50,13 @@ export default function Dashboard() {
         <main style={{ minHeight: '100vh', background: 'var(--bg-primary)', padding: 'var(--space-xl) 0' }}>
             <div className="container">
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-xl)' }}>
+                <div id="dash-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-xl)', gap: 'var(--space-md)' }}>
                     <div>
-                        <h1 className="heading-lg text-gradient">Dashboard Administrateur</h1>
+                        <h1 className="heading-lg text-gradient">Espace Admin</h1>
                         <p style={{ color: 'var(--text-secondary)' }}>Retrouvez ici tous les messages reçus depuis votre portfolio.</p>
                     </div>
-                    <Link href="/" className="btn btn-outline">
-                        ← Retour au Portfolio
+                    <Link href="/" className="btn btn-outline" style={{ whiteSpace: 'nowrap' }}>
+                        ← Retour
                     </Link>
                 </div>
 
@@ -69,6 +69,23 @@ export default function Dashboard() {
                     </div>
                 </div>
 
+                <style>{`
+                  @media (max-width: 600px) {
+                    #dash-header {
+                      flex-direction: column;
+                      align-items: flex-start !important;
+                      text-align: left;
+                    }
+                    .msg-item-header {
+                      flex-direction: column;
+                      gap: var(--space-md);
+                    }
+                    .msg-item-header button {
+                      width: 100%;
+                    }
+                  }
+                `}</style>
+
                 {loading ? (
                     <div style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>Chargement des messages...</div>
                 ) : messages.length === 0 ? (
@@ -79,7 +96,7 @@ export default function Dashboard() {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
                         {messages.map((msg) => (
                             <div key={msg.id} className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.75rem' }}>
+                                <div className="msg-item-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.75rem' }}>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                                         {/* Affichage de la photo de l'utilisateur */}
                                         <div
@@ -94,7 +111,8 @@ export default function Dashboard() {
                                                 justifyContent: 'center',
                                                 overflow: 'hidden',
                                                 border: '2px solid var(--border-light)',
-                                                cursor: msg.photo ? 'pointer' : 'default'
+                                                cursor: msg.photo ? 'pointer' : 'default',
+                                                flexShrink: 0
                                             }}
                                         >
                                             {msg.photo ? (
@@ -130,17 +148,18 @@ export default function Dashboard() {
                                     </button>
                                 </div>
 
-                                <div>
+                                <div style={{ overflowWrap: 'anywhere' }}>
                                     <span style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>Email : </span>
                                     <a href={`mailto:${msg.email}`} style={{ color: 'var(--accent-primary)' }}>{msg.email}</a>
                                 </div>
-                                <div style={{ background: 'var(--bg-secondary)', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.25rem' }}>
+                                <div style={{ background: 'var(--bg-secondary)', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.25rem', overflowWrap: 'anywhere' }}>
                                     <p style={{ whiteSpace: 'pre-wrap', lineHeight: '1.7' }}>{msg.message}</p>
                                 </div>
                             </div>
                         ))}
                     </div>
-                )}
+                )
+                }
 
                 {/* Lightbox pour la photo du message */}
                 {selectedPhoto && (

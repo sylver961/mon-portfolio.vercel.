@@ -36,7 +36,7 @@ export default function Header() {
                     {navLinks.map(link => (
                         <a key={link.href} href={link.href}>{link.label}</a>
                     ))}
-                    <a href="/dashboard" style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>Dashboard</a>
+                    <a href="/dashboard" style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>Admin</a>
 
                     {/* Theme toggle */}
                     <button
@@ -113,7 +113,7 @@ export default function Header() {
                         </a>
                     ))}
                     <a href="/dashboard" onClick={() => setIsOpen(false)} style={{ color: 'var(--accent-primary)', fontWeight: 'bold', fontSize: '1.1rem', padding: '0.5rem 0' }}>
-                        Dashboard
+                        Admin
                     </a>
                 </div>
             )}

@@ -21,13 +21,20 @@ const allProjects = [
     {
         id: 3,
         title: 'Conception Graphique',
-        description: "Création de design professionnel, logos pro pour les Entreprises, avec les logiciels d'adobe photoshop, Canvas.",
-        image: '/projects/project3.png',
+        description: "Création de design professionnel, logos pro qui reflécte image de vos idées pour les Entreprises, avec les logiciels d'adobe, Canvas.",
+        image: '/projects/Merry christmas.jpg',
         tags: ['Photoshop', 'Canvas'],
+    },
+    {
+        id: 4,
+        title: 'Système de gestion',
+        description: "En cas de besoin d'un logiciel de système de gestion de votre Entreprise, nous sommes là pour numériser vos tâches.",
+        image: '/projects/syst de gestion.png',
+        tags: ['PHP', 'html', 'Css', 'Javascript'],
     },
     // Ajoutez vos autres projets ici — ils seront cachés jusqu'à "Voir plus"
     // {
-    //   id: 4,
+    //   id: 5,
     //   title: 'Mon Projet 4',
     //   description: '...',
     //   image: '/projects/project4.png',
@@ -35,7 +42,7 @@ const allProjects = [
     // },
 ];
 
-const INITIAL_COUNT = 2; // Nombre de projets affichés par défaut
+const INITIAL_COUNT = 4; // Nombre de projets affichés par défaut
 
 export default function ProjectsSection() {
     const [showAll, setShowAll] = useState(false);

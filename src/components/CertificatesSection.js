@@ -6,17 +6,24 @@ import { useState } from 'react';
 const certificates = [
     {
         id: 1,
-        title: 'Certification Back-End Development',
-        issuer: 'Mon École / Ma Formation',
-        date: '2024',
-        image: '/certificats/certificat1.jpg',
+        title: 'Certification Xmas Hackthon.Ed.25',
+        issuer: 'GDG on Campus UCB / Création de Site web',
+        date: '2025',
+        image: '/certificats/certificat1.png',
+    },
+    {
+        id: 1,
+        title: 'Certification Xmas Hackthon.Ed.25',
+        issuer: 'GDG on Campus UCB / Ma Formation',
+        date: '2025',
+        image: '/certificats/certificat2.jpg',
     },
     {
         id: 2,
-        title: 'Certification Design Graphique',
-        issuer: 'Mon École / Ma Formation',
+        title: 'Certification de Développement Fullstack',
+        issuer: 'Global code institute / Ma Formation',
         date: '2024',
-        image: '/certificats/certificat2.jpg',
+        image: '/certificats/certificat3.jpg',
     },
     // Ajoutez autant de certificats que vous voulez ici !
 ];
@@ -100,7 +107,7 @@ export default function CertificatesSection() {
                                         transition: 'background 0.2s'
                                     }}
                                 >
-                                    👁 Voir le certificat
+                                    👁  Voir le certificat
                                 </button>
                             </div>
                         </div>
