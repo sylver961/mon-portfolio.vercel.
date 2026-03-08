@@ -26,7 +26,8 @@ export default function CertificatesSection() {
 
     return (
         <section className="section" id="certificats">
-            <div className="container">
+            <div className="container centering-container">
+
                 <h2 className="heading-lg text-gradient" style={{ textAlign: 'center', marginBottom: 'var(--space-sm)' }}>
                     Mes Certificats
                 </h2>
@@ -37,12 +38,26 @@ export default function CertificatesSection() {
                 <style>{`
                   #certs-grid {
                     display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                    grid-template-columns: repeat(2, 1fr);
                     gap: var(--space-lg);
+                    justify-items: center; /* Centrer les cartes dans leur cellule */
+                    justify-content: center; /* Centrer la grille elle-même */
+                  }
+                  @media (min-width: 1024px) {
+                    #certs-grid {
+                      grid-template-columns: repeat(3, 320px); /* Taille fixe pour mieux centrer */
+                    }
+                  }
+                  @media (max-width: 1023px) and (min-width: 601px) {
+                    #certs-grid {
+                      grid-template-columns: repeat(2, 300px);
+                    }
                   }
                   @media (max-width: 600px) {
                     #certs-grid {
                       grid-template-columns: 1fr;
+                      max-width: 320px;
+                      margin: 0 auto;
                     }
                   }
                 `}</style>

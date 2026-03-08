@@ -6,7 +6,7 @@ import path from 'path';
 export async function POST(request) {
     try {
         const data = await request.json();
-        const { name, email, message } = data;
+        const { name, email, message, photo } = data;
 
         if (!name || !email || !message) {
             return NextResponse.json({ error: 'Veuillez remplir tous les champs.' }, { status: 400 });
@@ -27,6 +27,7 @@ export async function POST(request) {
             name,
             email,
             message,
+            photo: photo || null,
             date: new Date().toISOString()
         };
         messages.unshift(newMessage); // Ajouter au début
@@ -34,12 +35,8 @@ export async function POST(request) {
         fs.writeFileSync(filePath, JSON.stringify(messages, null, 2));
 
         // Configurer le transporteur Nodemailer
-        // Vous devez définir ces variables d'environnement dans un fichier .env.local
-        // ou dans les paramètres Vercel :
-        // EMAIL_USER (votre adresse email, ex: monemail@gmail.com)
-        // EMAIL_PASS (le mot de passe d'application généré pour ce compte)
         const transporter = nodemailer.createTransport({
-            service: 'gmail', // ou smtp.office365.com, etc.
+            service: 'gmail',
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS,
@@ -48,14 +45,15 @@ export async function POST(request) {
 
         const mailOptions = {
             from: process.env.EMAIL_USER,
-            to: process.env.EMAIL_USER, // Vous recevrez l'email sur votre propre boîte
-            replyTo: email, // Permet de répondre directement à l'expéditeur
+            to: process.env.EMAIL_USER,
+            replyTo: email,
             subject: `Nouveau message de Portfolio : ${name}`,
-            text: `Nouveau message de contact via le portfolio :\n\nNom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+            text: `Nouveau message de contact via le portfolio :\n\nNom: ${name}\nEmail: ${email}\nPhoto: ${photo ? 'Oui' : 'Non'}\n\nMessage:\n${message}`,
             html: `
         <h3>Nouveau message de votre Portfolio</h3>
         <p><strong>Nom :</strong> ${name}</p>
         <p><strong>Email :</strong> ${email}</p>
+        <p><strong>Photo :</strong> ${photo ? 'Attachée (voir le Dashboard)' : 'Aucune'}</p>
         <hr/>
         <p><strong>Message :</strong></p>
         <p style="white-space: pre-wrap;">${message}</p>

@@ -44,6 +44,8 @@ export default function Dashboard() {
         }
     }
 
+    const [selectedPhoto, setSelectedPhoto] = useState(null);
+
     return (
         <main style={{ minHeight: '100vh', background: 'var(--bg-primary)', padding: 'var(--space-xl) 0' }}>
             <div className="container">
@@ -77,12 +79,36 @@ export default function Dashboard() {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
                         {messages.map((msg) => (
                             <div key={msg.id} className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.75rem' }}>
-                                    <div>
-                                        <span style={{ fontWeight: 'bold', color: 'var(--accent-primary)', fontSize: '1.1rem' }}>{msg.name}</span>
-                                        <span style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', marginLeft: '1rem' }}>
-                                            {new Date(msg.date).toLocaleString('fr-FR')}
-                                        </span>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.75rem' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                        {/* Affichage de la photo de l'utilisateur */}
+                                        <div
+                                            onClick={() => msg.photo && setSelectedPhoto(msg.photo)}
+                                            style={{
+                                                width: '50px',
+                                                height: '50px',
+                                                borderRadius: '50%',
+                                                background: 'var(--bg-secondary)',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                overflow: 'hidden',
+                                                border: '2px solid var(--border-light)',
+                                                cursor: msg.photo ? 'pointer' : 'default'
+                                            }}
+                                        >
+                                            {msg.photo ? (
+                                                <img src={msg.photo} alt={msg.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                            ) : (
+                                                <span style={{ fontSize: '1.2rem' }}>👤</span>
+                                            )}
+                                        </div>
+                                        <div>
+                                            <span style={{ fontWeight: 'bold', color: 'var(--accent-primary)', fontSize: '1.1rem', display: 'block' }}>{msg.name}</span>
+                                            <span style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+                                                {new Date(msg.date).toLocaleString('fr-FR')}
+                                            </span>
+                                        </div>
                                     </div>
                                     <button
                                         onClick={() => handleDelete(msg.id)}
@@ -115,7 +141,29 @@ export default function Dashboard() {
                         ))}
                     </div>
                 )}
+
+                {/* Lightbox pour la photo du message */}
+                {selectedPhoto && (
+                    <div
+                        onClick={() => setSelectedPhoto(null)}
+                        style={{
+                            position: 'fixed',
+                            inset: 0,
+                            background: 'rgba(0,0,0,0.85)',
+                            zIndex: 10000,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '2rem',
+                            backdropFilter: 'blur(5px)'
+                        }}
+                    >
+                        <img src={selectedPhoto} alt="Agrandissement" style={{ maxWidth: '90%', maxHeight: '90%', borderRadius: '1rem', border: '5px solid white', boxShadow: '0 0 30px rgba(0,0,0,0.5)' }} />
+                        <button onClick={() => setSelectedPhoto(null)} style={{ position: 'absolute', top: '2rem', right: '2rem', background: 'white', border: 'none', borderRadius: '50%', width: '40px', height: '40px', cursor: 'pointer', fontWeight: 'bold' }}>✕</button>
+                    </div>
+                )}
             </div>
         </main>
     );
 }
+

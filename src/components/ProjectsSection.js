@@ -44,18 +44,18 @@ export default function ProjectsSection() {
 
     return (
         <section className="section" id="projects">
-            <div className="container">
+            <div className="container centering-container">
                 <h2 className="heading-lg text-gradient" style={{ textAlign: 'center', marginBottom: 'var(--space-xl)' }}>Projets Récents</h2>
 
-                <div className="grid grid-cols-2 gap-lg md:grid-cols-1">
+                <div className="grid grid-cols-2 gap-lg md:grid-cols-1" style={{ justifyItems: 'center' }}>
                     {visibleProjects.map((project) => (
-                        <div key={project.id} className="glass-card" style={{ padding: 0, overflow: 'hidden' }}>
+                        <div key={project.id} className="glass-card" style={{ padding: 0, overflow: 'hidden', width: '100%', maxWidth: '500px' }}>
                             <img
                                 src={project.image}
                                 alt={project.title}
-                                style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }}
+                                style={{ width: '100%', height: '220px', objectFit: 'cover', display: 'block' }}
                             />
-                            <div style={{ padding: 'var(--space-md)' }}>
+                            <div style={{ padding: 'var(--space-md)', textAlign: 'left' }}>
                                 <h3 className="heading-md" style={{ marginBottom: 'var(--space-sm)' }}>{project.title}</h3>
                                 <p style={{ color: 'var(--text-secondary)', marginBottom: 'var(--space-md)' }}>{project.description}</p>
                                 <div style={{ display: 'flex', gap: 'var(--space-sm)', flexWrap: 'wrap' }}>
@@ -69,6 +69,7 @@ export default function ProjectsSection() {
                         </div>
                     ))}
                 </div>
+
 
                 {/* Voir plus / Voir moins */}
                 {allProjects.length > INITIAL_COUNT && (

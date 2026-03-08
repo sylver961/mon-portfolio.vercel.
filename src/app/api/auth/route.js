@@ -4,20 +4,19 @@ export async function POST(request) {
     try {
         const { password } = await request.json();
 
-        // Check against the environment variable password (or a default for demo purposes)
-        const validPassword = process.env.ADMIN_PASSWORD || '1234';
+        // Check against the environment variable password
+        const validPassword = process.env.ADMIN_PASSWORD || 'djsylva';
 
         if (password === validPassword) {
             // Create a response and set the authentication cookie
             const response = NextResponse.json({ success: true }, { status: 200 });
 
-            // Cookie is valid for 1 day
+            // Removing maxAge makes it a session cookie (prompt on browser close)
             response.cookies.set({
                 name: 'admin_token',
                 value: 'authenticated',
                 httpOnly: true,
                 path: '/',
-                maxAge: 60 * 60 * 24, // 1 day
             });
 
             return response;
