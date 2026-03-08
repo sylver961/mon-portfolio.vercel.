@@ -1,0 +1,121 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+
+export default function Dashboard() {
+    const [messages, setMessages] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    async function fetchMessages() {
+        try {
+            const res = await fetch('/api/messages');
+            const data = await res.json();
+            if (data.messages) {
+                setMessages(data.messages);
+            }
+        } catch (error) {
+            console.error("Failed to fetch messages", error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        fetchMessages();
+    }, []);
+
+    async function handleDelete(id) {
+        if (!confirm('Voulez-vous vraiment supprimer ce message ?')) return;
+
+        try {
+            const res = await fetch('/api/messages', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id }),
+            });
+
+            if (res.ok) {
+                // Reload the messages list
+                fetchMessages();
+            }
+        } catch (error) {
+            console.error("Delete failed", error);
+        }
+    }
+
+    return (
+        <main style={{ minHeight: '100vh', background: 'var(--bg-primary)', padding: 'var(--space-xl) 0' }}>
+            <div className="container">
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-xl)' }}>
+                    <div>
+                        <h1 className="heading-lg text-gradient">Dashboard Administrateur</h1>
+                        <p style={{ color: 'var(--text-secondary)' }}>Retrouvez ici tous les messages reçus depuis votre portfolio.</p>
+                    </div>
+                    <Link href="/" className="btn btn-outline">
+                        ← Retour au Portfolio
+                    </Link>
+                </div>
+
+                {/* Stats Bar */}
+                <div className="glass-card" style={{ marginBottom: 'var(--space-lg)', display: 'flex', alignItems: 'center', gap: 'var(--space-md)' }}>
+                    <span style={{ fontSize: '1.5rem' }}>📨</span>
+                    <div>
+                        <p style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>{messages.length} message(s) reçu(s)</p>
+                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>Total des soumissions du formulaire de contact</p>
+                    </div>
+                </div>
+
+                {loading ? (
+                    <div style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>Chargement des messages...</div>
+                ) : messages.length === 0 ? (
+                    <div className="glass-card" style={{ textAlign: 'center' }}>
+                        <p style={{ color: 'var(--text-secondary)' }}>Aucun message reçu pour le moment.</p>
+                    </div>
+                ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
+                        {messages.map((msg) => (
+                            <div key={msg.id} className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.75rem' }}>
+                                    <div>
+                                        <span style={{ fontWeight: 'bold', color: 'var(--accent-primary)', fontSize: '1.1rem' }}>{msg.name}</span>
+                                        <span style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', marginLeft: '1rem' }}>
+                                            {new Date(msg.date).toLocaleString('fr-FR')}
+                                        </span>
+                                    </div>
+                                    <button
+                                        onClick={() => handleDelete(msg.id)}
+                                        style={{
+                                            background: 'rgba(239, 68, 68, 0.15)',
+                                            border: '1px solid rgba(239, 68, 68, 0.4)',
+                                            color: '#ef4444',
+                                            padding: '0.4rem 0.9rem',
+                                            borderRadius: '0.5rem',
+                                            cursor: 'pointer',
+                                            fontWeight: '600',
+                                            transition: 'background 0.2s ease',
+                                            fontSize: '0.875rem',
+                                        }}
+                                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.3)'}
+                                        onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.15)'}
+                                    >
+                                        🗑 Supprimer
+                                    </button>
+                                </div>
+
+                                <div>
+                                    <span style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>Email : </span>
+                                    <a href={`mailto:${msg.email}`} style={{ color: 'var(--accent-primary)' }}>{msg.email}</a>
+                                </div>
+                                <div style={{ background: 'var(--bg-secondary)', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.25rem' }}>
+                                    <p style={{ whiteSpace: 'pre-wrap', lineHeight: '1.7' }}>{msg.message}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </main>
+    );
+}
